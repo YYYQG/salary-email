@@ -5,11 +5,12 @@ import cn.afterturn.easypoi.excel.annotation.Excel;
 import cn.afterturn.easypoi.excel.annotation.ExcelTarget;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @ExcelTarget("20")
 @Data
-public class salary {
+public class Salary implements Serializable {
 
     @Excel(name = "序号")
     private int id;
