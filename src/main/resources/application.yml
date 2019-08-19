@@ -1,0 +1,26 @@
+spring:
+  mail:
+    host: smtp.163.com
+    protocol: smtp
+    default-encoding: UTF-8
+    username: 18782408284@163.com
+    password: ilyilyYQGYQG1314
+    test-connection: true
+    properties:
+      mail:
+        smtp:
+          ssl:
+            enable: true
+          auth: true
+          starttls:
+            enable: true
+            required: true
+          socketFactory:
+            class: javax.net.ssl.SSLSocketFactory
+            fallback: false
+        debug: true
+
+
+
+#  ÃÜÂë£ºhr1234
+#  386662315@qq.com / ÃÜÂë£ºlm161226(ÎÒµÄÓÊÏä£©
