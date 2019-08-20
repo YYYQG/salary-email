@@ -4,14 +4,14 @@ spring:
     protocol: smtp
     default-encoding: UTF-8
     username: 18782408284@163.com
-    password: ilyilyYQGYQG1314
-    test-connection: true
+    password: ilyilyLLYLLY1314
+    test-connection: false
     properties:
       mail:
         smtp:
           ssl:
             enable: true
-          auth: true
+          auth: false
           starttls:
             enable: true
             required: true
@@ -21,7 +21,14 @@ spring:
         debug: true
   thymeleaf:
     cache: false
-
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/salary_email?useSSL=false&amp;useUnicode=true&amp;characterEncoding=UTF-8
+    username: root
+    password: 123456
+  jpa:
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
 
 #  √‹¬Î£∫hr1234
 #  386662315@qq.com / √‹¬Î£∫lm161226(Œ“µƒ” œ‰£©

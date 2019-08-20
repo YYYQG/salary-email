@@ -8,9 +8,9 @@ import lombok.Data;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-@ExcelTarget("20")
+@ExcelTarget("说明")
 @Data
-public class Salary implements Serializable {
+public class Explain implements Serializable {
 
     @Excel(name = "序号")
     private int id;
@@ -25,7 +25,7 @@ public class Salary implements Serializable {
     private String sex;
 
     @Excel(name = "身份证号码")
-    private String IdCard;
+    private String idCard;
 
     @Excel(name = "学历（如本/专科）")
     private String education;
