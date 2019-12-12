@@ -2,7 +2,7 @@ package com.xxx.salary_email.service;
 
 import cn.afterturn.easypoi.excel.ExcelImportUtil;
 import cn.afterturn.easypoi.excel.entity.ImportParams;
-import com.xxx.salary_email.bo.SalaryBo;
+import com.xxx.salary_email.bo.SalaryBO;
 import com.xxx.salary_email.dao.entity.Salary;
 import com.xxx.salary_email.dao.repository.SalaryRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -23,7 +23,7 @@ public class ExcelService {
 
     public List<Salary> excelImport(MultipartFile file){
 
-        List<SalaryBo> salaries = null;
+        List<SalaryBO> salaries = null;
         ImportParams params = new ImportParams();
         params.setTitleRows(1);
         params.setHeadRows(1);
@@ -32,7 +32,7 @@ public class ExcelService {
         params.setLastOfInvalidRow(4);
         log.info("fileName:{}",file.getOriginalFilename());
         try {
-            salaries = ExcelImportUtil.importExcel(file.getInputStream(), SalaryBo.class,params);
+            salaries = ExcelImportUtil.importExcel(file.getInputStream(), SalaryBO.class,params);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -46,7 +46,7 @@ public class ExcelService {
 
     }
 
-    public Salary salaryBoToSalary(SalaryBo salary){
+    public Salary salaryBoToSalary(SalaryBO salary){
 
         return new Salary(salary.getId(),salary.getDepartment(),salary.getName(),salary.getPayScale(),salary.getBasePay(),salary.getPostWage(),salary.getSeniorityPay(),salary.getMealAllowance(),salary.getOther(),salary.getSendSubtotal(),salary.getAnnuity(),salary.getMedicare(),salary.getUnemploymentInsurance(),salary.getAccumulationFund(),salary.getSocialFundSubtotal(),salary.getFillTax(),salary.getActualQuantity());
 

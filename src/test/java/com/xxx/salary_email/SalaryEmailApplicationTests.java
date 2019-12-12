@@ -1,6 +1,5 @@
 package com.xxx.salary_email;
 
-import com.xxx.salary_email.bo.Explain;
 import com.xxx.salary_email.dao.entity.Salary;
 import com.xxx.salary_email.service.ExcelService;
 import org.junit.Test;

@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 @ExcelTarget(value = "工资明细")
 @Data
-public class SalaryBo {
+public class SalaryBO {
 
     @Excel(name = "编号")
     private int id;

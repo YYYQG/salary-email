@@ -1,6 +1,5 @@
 package com.xxx.salary_email.controller;
 
-import com.xxx.salary_email.bo.SalaryBo;
 import com.xxx.salary_email.dao.entity.Salary;
 import com.xxx.salary_email.service.ExcelService;
 import lombok.extern.slf4j.Slf4j;

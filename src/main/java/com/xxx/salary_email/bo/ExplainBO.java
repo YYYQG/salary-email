@@ -10,7 +10,7 @@ import java.time.LocalDate;
 
 @ExcelTarget("说明")
 @Data
-public class Explain implements Serializable {
+public class ExplainBO implements Serializable {
 
     @Excel(name = "序号")
     private int id;
