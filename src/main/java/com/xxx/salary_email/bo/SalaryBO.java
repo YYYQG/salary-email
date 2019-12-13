@@ -4,10 +4,6 @@ package com.xxx.salary_email.bo;
 import cn.afterturn.easypoi.excel.annotation.Excel;
 import cn.afterturn.easypoi.excel.annotation.ExcelTarget;
 import lombok.Data;
-import org.hibernate.annotations.DynamicInsert;
-
-import javax.persistence.Entity;
-import javax.persistence.Table;
 
 
 
@@ -28,13 +24,13 @@ public class SalaryBO {
     private double payScale;
 
     @Excel(name = "基本工资")
-    private double basePay;
+    private double baseSalary;
 
     @Excel(name = "岗位工资")
-    private double postWage;
+    private double postSalary;
 
     @Excel(name = "工龄工资")
-    private double seniorityPay;
+    private double senioritySalary;
 
     @Excel(name = "餐补")
     private double mealAllowance;
@@ -55,7 +51,7 @@ public class SalaryBO {
     private double  unemploymentInsurance;
 
     @Excel(name = "公积金")
-    private double accumulationFund;
+    private double providentFund;
 
     @Excel(name = "社保公积金小计")
     private double socialFundSubtotal;
@@ -64,6 +60,6 @@ public class SalaryBO {
     private double fillTax;
 
     @Excel(name = "实发数")
-    private double actualQuantity;
+    private double takeHomeSalary;
 
 }

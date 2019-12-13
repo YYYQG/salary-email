@@ -52,8 +52,8 @@ public class SalaryEmailApplicationTests {
 
         File file = ResourceUtils.getFile("classpath:salary.xls");
         MultipartFile mFile = new MockMultipartFile("salary",new FileInputStream(file));
-        List<Salary>  salaries = excelService.excelImport(mFile);
-        System.out.println(salaries.toString());
+        boolean salaries = excelService.excelImport(mFile);
+        System.out.println(salaries);
 
 
     }

@@ -1,24 +1,24 @@
 spring:
-  mail:
-    host: smtp.163.com
-    protocol: smtp
-    default-encoding: UTF-8
-    username: 18782408284@163.com
-    password: ilyilyLLYLLY1314
-    test-connection: false
-    properties:
-      mail:
-        smtp:
-          ssl:
-            enable: true
-          auth: false
-          starttls:
-            enable: true
-            required: true
-          socketFactory:
-            class: javax.net.ssl.SSLSocketFactory
-            fallback: false
-        debug: true
+  #  mail:
+  #    host: smtp.163.com
+  #    protocol: smtp
+  #    default-encoding: UTF-8
+  #    username: 18782408284@163.com
+  #    password: ilyilyLLYLLY1314
+  #    test-connection: false
+  #    properties:
+  #      mail:
+  #        smtp:
+  #          ssl:
+  #            enable: true
+  #          auth: false
+  #          starttls:
+  #            enable: true
+  #            required: true
+  #          socketFactory:
+  #            class: javax.net.ssl.SSLSocketFactory
+  #            fallback: false
+  #        debug: true
   thymeleaf:
     cache: false
   datasource:
@@ -30,5 +30,5 @@ spring:
     show-sql: true
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
 
-#  ÃÜÂë£ºhr1234
-#  386662315@qq.com / ÃÜÂë£ºlm161226(ÎÒµÄÓÊÏä£©
+#  å¯†ç ï¼šhr1234
+#  386662315@qq.com / å¯†ç ï¼šlm161226(æˆ‘çš„é‚®ç®±ï¼‰

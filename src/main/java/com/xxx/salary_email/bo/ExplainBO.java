@@ -40,7 +40,7 @@ public class ExplainBO implements Serializable {
     private LocalDate entryData;
 
     @Excel(name = "电话号码")
-    private String telephone;
+    private String telehone;
 
     @Excel(name = "工资")
     private int salary;
