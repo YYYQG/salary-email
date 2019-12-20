@@ -6,14 +6,11 @@ import cn.afterturn.easypoi.excel.annotation.ExcelTarget;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @ExcelTarget("说明")
 @Data
 public class ExplainBO implements Serializable {
-
-    @Excel(name = "序号")
-    private int id;
 
     @Excel(name = "部门")
     private String department;
@@ -37,13 +34,13 @@ public class ExplainBO implements Serializable {
     private String bankAccount;
 
     @Excel(name = "入职日期")
-    private LocalDate entryData;
+    private LocalDateTime entryDate;
 
     @Excel(name = "电话号码")
-    private String telehone;
+    private String telephone;
 
     @Excel(name = "工资")
-    private int salary;
+    private Integer salary;
 
     @Excel(name = "备注")
     private String remark;

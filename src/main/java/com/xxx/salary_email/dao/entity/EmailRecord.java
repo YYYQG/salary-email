@@ -7,10 +7,12 @@ import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.sql.Date;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -30,13 +32,14 @@ public class EmailRecord {
 
     @Id
     @Column(name = "id")
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
     @Column(name = "staff_id")
     private Integer staffId;
 
     @Column(name = "transmit_time")
-    private Timestamp transmitTime;
+    private LocalDateTime transmitTime;
 
     @Column(name = "date_of_salary")
     private Date dateOfSalary;

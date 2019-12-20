@@ -19,7 +19,7 @@ import javax.persistence.Table;
 public class Salary {
 
     @Id
-    private int id;
+    private Integer id;
 
     private String department;
 

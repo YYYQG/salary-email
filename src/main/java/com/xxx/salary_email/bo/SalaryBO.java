@@ -5,14 +5,12 @@ import cn.afterturn.easypoi.excel.annotation.Excel;
 import cn.afterturn.easypoi.excel.annotation.ExcelTarget;
 import lombok.Data;
 
+import java.math.BigDecimal;
 
 
 @ExcelTarget(value = "工资明细")
 @Data
 public class SalaryBO {
-
-    @Excel(name = "编号")
-    private int id;
 
     @Excel(name = "部门")
     private String department;
@@ -21,45 +19,46 @@ public class SalaryBO {
     private String name;
 
     @Excel(name = "工资标准")
-    private double payScale;
+    private BigDecimal payScale;
 
     @Excel(name = "基本工资")
-    private double baseSalary;
+    private BigDecimal baseSalary;
 
     @Excel(name = "岗位工资")
-    private double postSalary;
+    private BigDecimal postSalary;
 
     @Excel(name = "工龄工资")
-    private double senioritySalary;
+    private BigDecimal senioritySalary;
 
     @Excel(name = "餐补")
-    private double mealAllowance;
+    private BigDecimal mealAllowance;
 
+    //其它扣除
     @Excel(name = "其他")
-    private double other;
+    private BigDecimal otherDeduction;
 
     @Excel(name = "应发小计")
-    private double sendSubtotal;
+    private BigDecimal sendSubtotal;
 
     @Excel(name = "养老")
-    private double annuity;
+    private BigDecimal annuity;
 
     @Excel(name = "医疗")
-    private double medicare;
+    private BigDecimal medicare;
 
     @Excel(name = "失业")
-    private double  unemploymentInsurance;
+    private BigDecimal  unemploymentInsurance;
 
     @Excel(name = "公积金")
-    private double providentFund;
+    private BigDecimal providentFund;
 
     @Excel(name = "社保公积金小计")
-    private double socialFundSubtotal;
+    private BigDecimal socialFundSubtotal;
 
     @Excel(name = "应补税额")
-    private double fillTax;
+    private BigDecimal fillTax;
 
     @Excel(name = "实发数")
-    private double takeHomeSalary;
+    private BigDecimal takeHomeSalary;
 
 }
