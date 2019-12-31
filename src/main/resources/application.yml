@@ -31,4 +31,8 @@ spring:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
 
 #  密码：hr1234
+server:
+  port: 8080
+  servlet:
+    context-path: /salary-email
 #  386662315@qq.com / 密码：lm161226(我的邮箱）
