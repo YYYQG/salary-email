@@ -10,6 +10,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.NamedAttributeNode;
+import javax.persistence.NamedEntityGraph;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -28,6 +32,9 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@NamedEntityGraph(name = "EmailInformation.staff",attributeNodes = {
+        @NamedAttributeNode("staff")
+})
 public class EmailInformation {
 
 
@@ -86,5 +93,8 @@ public class EmailInformation {
     @Column(name = "take_home_salary")
     private BigDecimal takeHomeSalary;
 
+    @OneToOne
+    @JoinColumn(name="staff_id",referencedColumnName = "id",insertable = false,updatable = false)
+    private Staff staff;
 
 }

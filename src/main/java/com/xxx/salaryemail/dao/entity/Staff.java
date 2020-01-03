@@ -66,7 +66,10 @@ public class Staff {
     @Column(name = "remark")
     private String remark;
 
-    @Column(name = "update_date")
-    private LocalDateTime updateDate;
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "update_datetime")
+    private LocalDateTime updateDatetime;
 
 }

@@ -27,12 +27,14 @@ public class SalaryBO {
     @Excel(name = "岗位工资")
     private BigDecimal postSalary;
 
+    @Excel(name = "绩效、奖金")
+    private BigDecimal performanceAndBonus;
+
     @Excel(name = "工龄工资")
     private BigDecimal senioritySalary;
 
     @Excel(name = "餐补")
     private BigDecimal mealAllowance;
-
     //其它扣除
     @Excel(name = "其他")
     private BigDecimal otherDeduction;

@@ -11,15 +11,22 @@ import com.xxx.salaryemail.dao.repository.EmailInformationRepository;
 import com.xxx.salaryemail.dao.repository.StaffRepository;
 import com.xxx.salaryemail.service.ExcelService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeSet;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Service
@@ -37,14 +44,13 @@ public class ExcelServiceImpl implements ExcelService {
 
         List<SalaryBO> salaryBOs = getSalaryFromExcel(file);
         List<ExplainBO> explainBOs = getExplainFromExcel(file);
-        List<SocialSecurityProvidentFundBO> socialSecurityProvidentFundBOs = getSocialSecurityProvidentFundFromExcel(file);
-        Map<String,SalaryBO> salaryBOMap = salaryBOs.stream()
-                .filter((salaryBO)-> salaryBO.getName()!=null)
-                .collect(Collectors.toMap(SalaryBO::getName,(salaryBO -> salaryBO)));
+        /*List<SocialSecurityProvidentFundBO> socialSecurityProvidentFundBOs = getSocialSecurityProvidentFundFromExcel(file);
+
         Map<String,SocialSecurityProvidentFundBO> socialSecurityProvidentFundBOMap
                 = socialSecurityProvidentFundBOs.stream()
                 .filter(socialSecurityProvidentFundBO -> socialSecurityProvidentFundBO.getName()!=null)
-                .collect(Collectors.toMap(SocialSecurityProvidentFundBO::getName,(socialSecurityProvidentFundBO)->socialSecurityProvidentFundBO));
+                .collect(Collectors.toMap(SocialSecurityProvidentFundBO::getName,(socialSecurityProvidentFundBO)->socialSecurityProvidentFundBO));*/
+
         List<Staff> staffs = explainBOs.stream()
                 .filter((explainBO)-> explainBO.getName()!=null)
                 .map((explainBO) -> {
@@ -54,23 +60,21 @@ public class ExcelServiceImpl implements ExcelService {
                 })
                 .collect(Collectors.toList());
         staffs = batchUpdateOrSaveStaffs(staffs);
-        List<EmailInformation> emailInformationList = staffs.stream()
-                .map((staff) -> {
+
+        Map<String, Staff> staffMap = staffs.stream()
+                .collect(Collectors.toMap(Staff::getName, staff -> staff));
+
+        List<EmailInformation> emailInformations = salaryBOs.stream()
+                .map(salaryBO -> {
                     EmailInformation emailInformation = new EmailInformation();
+                    Staff staff = staffMap.get(salaryBO.getName());
                     emailInformation.setStaffId(staff.getId());
-                    SalaryBO salaryBO = salaryBOMap.get(staff.getName());
-                    if(!ObjectUtils.isEmpty(salaryBO)){
-                        emailInformation = fillEmailInformation(emailInformation,salaryBO);
-                    }
-                    SocialSecurityProvidentFundBO socialSecurityProvidentFundBO = socialSecurityProvidentFundBOMap.get(staff.getName());
-                    if(!ObjectUtils.isEmpty(socialSecurityProvidentFundBO)){
-                        emailInformation = fillEmailInformation(emailInformation,socialSecurityProvidentFundBO);
-                    }
+                    emailInformation = fillEmailInformation(emailInformation, salaryBO);
                     return emailInformation;
                 })
                 .collect(Collectors.toList());
 
-        emailInformationRepository.saveAll(emailInformationList);
+        emailInformationRepository.saveAll(emailInformations);
     }
 
     private List<Staff> batchUpdateOrSaveStaffs(List<Staff> staffs){
@@ -81,6 +85,9 @@ public class ExcelServiceImpl implements ExcelService {
         List<Staff> staffsInDB = staffRepository.findAllByIdCardIn(staffIdCards);
         Map<String, Staff> staffMap = staffsInDB.stream()
                 .collect(Collectors.toMap(Staff::getIdCard, staff -> staff));
+        staffs = staffs.stream()
+                .filter(distinctByKey(Staff::getIdCard))
+                .collect(Collectors.toList());
         for (Staff staff : staffs) {
             Staff staffInDB = staffMap.get(staff.getIdCard());
             if(!ObjectUtils.isEmpty(staffInDB)){
@@ -94,27 +101,38 @@ public class ExcelServiceImpl implements ExcelService {
 
     }
 
-    private EmailInformation fillEmailInformation(EmailInformation emailInformation,SalaryBO salaryBO){
+    public static <T> Predicate<T> distinctByKey(Function<? super T, Object> keyExtractor) {
+        Map<Object, Boolean> seen = new ConcurrentHashMap<>();
+        return t -> seen.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;
+    }
 
-        emailInformation.setBaseSalary(salaryBO.getBaseSalary());
-        emailInformation.setPostSalary(salaryBO.getPostSalary());
-        emailInformation.setSenioritySalary(salaryBO.getSenioritySalary());
-        emailInformation.setMealAllowance(salaryBO.getMealAllowance());
-        emailInformation.setOtherDeduction(salaryBO.getOtherDeduction());
+
+    private EmailInformation fillEmailInformation(EmailInformation emailInformation,SalaryBO salaryBO){
+        emailInformation.setBaseSalary(transferNull(salaryBO.getBaseSalary()));
+        emailInformation.setPostSalary(transferNull(salaryBO.getPostSalary()));
+        emailInformation.setSenioritySalary(transferNull(salaryBO.getSenioritySalary()));
+        emailInformation.setMealAllowance(transferNull(salaryBO.getMealAllowance()));
+        emailInformation.setOtherDeduction(transferNull(salaryBO.getOtherDeduction()));
         //工资总额=应发小计
-        emailInformation.setTotalSalary(salaryBO.getSendSubtotal());
+        emailInformation.setTotalSalary(transferNull(salaryBO.getSendSubtotal()));
         //应扣所得税=应补税额
-        emailInformation.setIndividualIncomeTax(salaryBO.getFillTax());
-        emailInformation.setTakeHomeSalary(salaryBO.getTakeHomeSalary());
+        emailInformation.setIndividualIncomeTax(transferNull(salaryBO.getFillTax()));
+        emailInformation.setPerformanceAndBonus(transferNull(salaryBO.getPerformanceAndBonus()));
+        emailInformation.setTakeHomeSalary(transferNull(salaryBO.getTakeHomeSalary()));
+        emailInformation.setIndividualSocialSecurity(transferNull(salaryBO.getSocialFundSubtotal().subtract(salaryBO.getProvidentFund())));
+        emailInformation.setIndividualProvidentFund(transferNull(salaryBO.getProvidentFund()));
         return emailInformation;
 
     }
 
-    private EmailInformation fillEmailInformation(EmailInformation emailInformation,SocialSecurityProvidentFundBO socialSecurityProvidentFundBO){
+    public BigDecimal transferNull(BigDecimal value){
 
-        emailInformation.setIndividualSocialSecurity(socialSecurityProvidentFundBO.getIndividualSocialSecurity());
-        emailInformation.setIndividualProvidentFund(socialSecurityProvidentFundBO.getIndividualProvidentFund());
-        return emailInformation;
+        if(value==null){
+            return BigDecimal.ZERO;
+        }else {
+            return value;
+        }
+
     }
 
     private List<SalaryBO> getSalaryFromExcel(MultipartFile file) {

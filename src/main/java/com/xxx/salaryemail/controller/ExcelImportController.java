@@ -15,7 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Slf4j
 @RestController
-@RequestMapping(value = "/excel")
+@RequestMapping(value = "/api/excel")
 public class ExcelImportController {
 
     @Autowired

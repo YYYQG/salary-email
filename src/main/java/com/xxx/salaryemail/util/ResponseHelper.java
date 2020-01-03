@@ -12,15 +12,15 @@ import org.springframework.http.HttpStatus;
  */
 public class ResponseHelper {
 
-    public static <T> com.xxx.salaryemail.util.ResponseEntity of(T data){
-        return com.xxx.salaryemail.util.ResponseEntity.builder()
+    public static <T> ResponseEntity of(T data){
+        return ResponseEntity.builder()
                 .status(HttpStatus.OK.value())
                 .data(data)
                 .build();
     }
 
-    public static <T> com.xxx.salaryemail.util.ResponseEntity ofNothing(){
-        return com.xxx.salaryemail.util.ResponseEntity.builder().build();
+    public static <T> ResponseEntity ofNothing(){
+        return ResponseEntity.builder().build();
     }
 
 }
