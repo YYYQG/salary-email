@@ -4,9 +4,14 @@ import com.xxx.salaryemail.dao.entity.Staff;
 import com.xxx.salaryemail.service.StaffService;
 import com.xxx.salaryemail.util.ResponseEntity;
 import com.xxx.salaryemail.util.ResponseHelper;
+import com.xxx.salaryemail.vo.StaffVO;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -31,9 +36,11 @@ public class StaffController {
         return ResponseHelper.of(staffService.getAll());
     }
 
-    public ResponseEntity saveStaffEmail(){
 
-
+    @ApiOperation("change staff email")
+    @PatchMapping("/api/staff/{staffId}")
+    public ResponseEntity saveStaffEmail(@PathVariable(name = "staffId") Integer staffId,@RequestBody StaffVO staffVO){
+        staffService.updateStaffEmail(staffId,staffVO.getEmail());
         return ResponseHelper.ofNothing();
     }
 

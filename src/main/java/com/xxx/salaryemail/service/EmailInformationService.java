@@ -17,4 +17,6 @@ public interface EmailInformationService {
 
     List<EmailInformationBO> getAll();
 
+    void updateEmailInformation(EmailInformationBO emailInformationBO);
+
 }

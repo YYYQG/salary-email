@@ -20,7 +20,7 @@ public class ResponseHelper {
     }
 
     public static <T> ResponseEntity ofNothing(){
-        return ResponseEntity.builder().build();
+        return ResponseEntity.builder().status(HttpStatus.OK.value()).build();
     }
 
 }

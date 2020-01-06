@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,6 +23,7 @@ import java.time.LocalDateTime;
  */
 @Entity
 @DynamicInsert
+@DynamicUpdate
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -34,7 +36,6 @@ public class Staff {
 
     @Column(name = "id_card")
     private String idCard;
-
 
     @Column(name = "name")
     private String name;
@@ -69,7 +70,7 @@ public class Staff {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "update_datetime")
-    private LocalDateTime updateDatetime;
+    //@Column(name = "update_datetime")
+    //private LocalDateTime updateDatetime;
 
 }

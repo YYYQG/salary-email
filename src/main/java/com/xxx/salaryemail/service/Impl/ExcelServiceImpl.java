@@ -68,12 +68,16 @@ public class ExcelServiceImpl implements ExcelService {
                 .map(salaryBO -> {
                     EmailInformation emailInformation = new EmailInformation();
                     Staff staff = staffMap.get(salaryBO.getName());
-                    emailInformation.setStaffId(staff.getId());
-                    emailInformation = fillEmailInformation(emailInformation, salaryBO);
-                    return emailInformation;
+                    if(!ObjectUtils.isEmpty(staff)){
+                        emailInformation.setStaffId(staff.getId());
+                        emailInformation = fillEmailInformation(emailInformation, salaryBO);
+                        return emailInformation;
+                    }
+                    return null;
                 })
+                .filter((emailInformation -> !ObjectUtils.isEmpty(emailInformation)))
                 .collect(Collectors.toList());
-
+        emailInformationRepository.deleteAll();
         emailInformationRepository.saveAll(emailInformations);
     }
 
@@ -92,6 +96,7 @@ public class ExcelServiceImpl implements ExcelService {
             Staff staffInDB = staffMap.get(staff.getIdCard());
             if(!ObjectUtils.isEmpty(staffInDB)){
                 staff.setId(staffInDB.getId());
+                staff.setEmail(staffInDB.getEmail());
                 staffRepository.update(staff);
             }else {
                 staffRepository.insert(staff);

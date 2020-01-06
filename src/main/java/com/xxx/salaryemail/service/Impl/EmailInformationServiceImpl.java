@@ -40,5 +40,11 @@ public class EmailInformationServiceImpl implements EmailInformationService {
                 })
                 .collect(Collectors.toList());
         return emailInformationBOs;
+
+    }
+
+    @Override
+    public void updateEmailInformation(EmailInformationBO emailInformationBO) {
+        emailInformationRepository.updateEmailInformation(emailInformationBO);
     }
 }

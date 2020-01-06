@@ -1,6 +1,7 @@
 package com.xxx.salaryemail.service;
 
 import com.xxx.salaryemail.dao.entity.Staff;
+import com.xxx.salaryemail.vo.StaffVO;
 
 import java.util.List;
 
@@ -15,5 +16,7 @@ import java.util.List;
 public interface StaffService {
 
     List<Staff> getAll();
+
+    void updateStaffEmail(Integer staffId,String email);
 
 }

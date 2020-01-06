@@ -3,6 +3,8 @@ package com.xxx.salaryemail.service.Impl;
 import com.xxx.salaryemail.dao.entity.Staff;
 import com.xxx.salaryemail.dao.repository.StaffRepository;
 import com.xxx.salaryemail.service.StaffService;
+import com.xxx.salaryemail.vo.StaffVO;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,5 +27,10 @@ public class StaffServiceImpl implements StaffService {
     @Override
     public List<Staff> getAll() {
         return staffRepository.findAll();
+    }
+
+    @Override
+    public void updateStaffEmail(Integer staffId,String email) {
+        staffRepository.updateStaffEmail(staffId,email);
     }
 }
