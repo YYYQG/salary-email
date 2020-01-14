@@ -27,11 +27,11 @@ public interface EmailInformationRepository extends JpaRepository<EmailInformati
 
     @Transactional
     @Modifying
-    @Query("update EmailInformation set baseSalary = :#{email.baseSalary},postSalary = :#{email.postSalary}," +
-            "senioritySalary = :#{email.senioritySalary}, performanceAndBonus = :#{email.performanceAndBonus}," +
-            "mealAllowance = :#{email.mealAllowance}, otherDeduction = :#{email.otherDeduction}, totalSalary = :#{email.totalSalary}," +
-            "individualSocialSecurity = :#{email.individualSocialSecurity}, individualProvidentFund = :#{email.individualProvidentFund}," +
-            "individualIncomeTax = :#{email.individualIncomeTax}, takeHomeSalary = :#{email.takeHomeSalary} where staffId = :#{email.staffId}")
+    @Query("update EmailInformation set baseSalary = :#{#email.baseSalary},postSalary = :#{#email.postSalary}," +
+            "senioritySalary = :#{#email.senioritySalary}, performanceAndBonus = :#{#email.performanceAndBonus}," +
+            "mealAllowance = :#{#email.mealAllowance}, otherDeduction = :#{#email.otherDeduction}, totalSalary = :#{#email.totalSalary}," +
+            "individualSocialSecurity = :#{#email.individualSocialSecurity}, individualProvidentFund = :#{#email.individualProvidentFund}," +
+            "individualIncomeTax = :#{#email.individualIncomeTax}, takeHomeSalary = :#{#email.takeHomeSalary} where staffId = :#{#email.staffId}")
     void updateEmailInformation(@Param("email")EmailInformationBO email);
 
 }
